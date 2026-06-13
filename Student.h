@@ -1,26 +1,44 @@
+#pragma once
 #ifndef STUDENT_H
 #define STUDENT_H
 
 #include <string>
+using namespace std;
 
-const int MAX_STUDENTS = 50;
+// ================= CONSTANTS =================
+const int STUDENT_MAX = 100;
 const int NUM_ASSIGNMENTS = 5;
+const int NUM_COURSES = 3;
 
-struct Student {
-    std::string firstName;
-    std::string lastName;
-    int ID;
+// ================= STRUCT =================
+struct Student
+{
+    string firstName;
+    string lastName;
+    int id;
+
+    double assignments[NUM_ASSIGNMENTS];
     double average;
+
+    string courses[NUM_COURSES];
 };
 
-// Function prototypes
-void loadStudents(Student students[], int& count, int grades[][NUM_ASSIGNMENTS]);
-void generateGrades(int grades[][NUM_ASSIGNMENTS], int numStudents);
-void calculateAverages(Student students[], int grades[][NUM_ASSIGNMENTS], int numStudents);
-void displayAllStudentInfo(Student students[], int grades[][NUM_ASSIGNMENTS], int numStudents, int highlightStudent = -1, int highlightAssign = -1);
-void updateAssignment(Student students[], int grades[][NUM_ASSIGNMENTS], int numStudents);
-void addStudent(Student students[], int grades[][NUM_ASSIGNMENTS], int& numStudents);
-void saveStudents(Student students[], int numStudents);
-void highlightSearch(Student students[], int grades[][NUM_ASSIGNMENTS], int numStudents);
+// ================= FUNCTION PROTOTYPES =================
+void loadStudents(Student students[], int& count);
+void displayStudents(Student students[], int count);
 
-#endif#pragma once
+void calculateAverage(Student* s);
+void calculateAllAverages(Student students[], int count);
+
+void searchByCourse(Student students[], int count);
+void showAssignmentAverage(Student students[], int count);
+void showHardestAssignment(Student students[], int count);
+void courseEnrollment(Student students[], int count);
+
+void sortByAverage(Student students[], int count);
+
+void addStudent(Student students[], int& count);
+void atRiskStudents(Student students[], int count);
+void saveStudents(Student students[], int count);
+
+#endif

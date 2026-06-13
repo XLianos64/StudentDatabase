@@ -1,52 +1,80 @@
-#include "Student.h"
 #include <iostream>
-
+#include "Student.h"
 using namespace std;
 
-int main() {
-    Student students[MAX_STUDENTS];
-    int grades[MAX_STUDENTS][NUM_ASSIGNMENTS];
-    int numStudents = 0;
+int main()
+{
+    Student students[STUDENT_MAX];
+    int count = 0;
 
-    loadStudents(students, numStudents, grades);
-    generateGrades(grades, numStudents);
-    calculateAverages(students, grades, numStudents);
+    loadStudents(students, count);
+    calculateAllAverages(students, count);
 
     int choice;
-    do {
-        cout << "\n=== Student Grade System ===\n";
-        cout << "1. Display All Student Info\n";
-        cout << "2. Update Assignment\n";
-        cout << "3. Add Student\n";
-        cout << "4. Save to File\n";
-        cout << "5. Highlight Student / Assignment\n";
-        cout << "6. Exit\n";
-        cout << "Enter your choice: ";
+
+    do
+    {
+        cout << "\n===== STUDENT DATABASE =====\n";
+        cout << "1. Display\n";
+        cout << "2. Search by Course\n";
+        cout << "3. Assignment Averages\n";
+        cout << "4. Hardest Assignment\n";
+        cout << "5. Course Enrollment\n";
+        cout << "6. Sort by Averages\n";
+        cout << "7. Add Student\n";
+        cout << "8. At Risk Students\n";
+        cout << "9. Exit\n";
+        cout << endl;
+        cout << "Enter Choice: ";
         cin >> choice;
 
-        switch (choice) {
+        switch (choice)
+        {
         case 1:
-            displayAllStudentInfo(students, grades, numStudents);
+            displayStudents(students, count);
             break;
-        case 2:
-            updateAssignment(students, grades, numStudents);
-            break;
-        case 3:
-            addStudent(students, grades, numStudents);
-            break;
-        case 4:
-            saveStudents(students, numStudents);
-            break;
-        case 5:
-            highlightSearch(students, grades, numStudents);
-            break;
-        case 6:
-            cout << "Exiting the program. Goodbye!\n";
-            break;
-        default:
-            cout << "Invalid choice. Please try again.\n";
-        }
-    } while (choice != 6);
 
-    return 0;
-}
+        case 2:
+            searchByCourse(students, count);
+            break;
+
+        case 3:
+            showAssignmentAverage(students, count);
+            break;
+
+        case 4:
+            showHardestAssignment(students, count);
+            break;
+
+        case 5:
+            courseEnrollment(students, count);
+            break;
+
+        case 6:
+            sortByAverage(students, count);
+            displayStudents(students, count);
+            break;
+
+        case 7:
+            addStudent(students, count);
+            saveStudents(students, count);
+            count = 0;
+            loadStudents(students, count);
+            calculateAllAverages(students, count);
+            displayStudents(students, count);
+            break;
+
+        case 8:
+            atRiskStudents(students, count);
+            break;
+
+        case 9:
+            cout << "\nExiting program..." << endl;
+            break;
+
+        default:
+            cout << "\nInvalid choice!" << endl;
+        }
+
+    } while (choice != 9);
+}//end of main
