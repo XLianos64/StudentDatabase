@@ -1,6 +1,4 @@
 #pragma once
-#ifndef STUDENT_H
-#define STUDENT_H
 
 #include <string>
 using namespace std;
@@ -15,7 +13,7 @@ struct Student
 {
     string firstName;
     string lastName;
-    int id;
+    int id; // Note: Kept as int to match your Lab 6 precisely
 
     double assignments[NUM_ASSIGNMENTS];
     double average;
@@ -23,22 +21,29 @@ struct Student
     string courses[NUM_COURSES];
 };
 
+// ================= LINKED LIST NODE =================
+struct StudentNode
+{
+    Student data;         // Original struct used as cargo
+    StudentNode* next;    // Link to the next student
+};
+
 // ================= FUNCTION PROTOTYPES =================
-void loadStudents(Student students[], int& count);
-void displayStudents(Student students[], int count);
+void loadStudents(StudentNode*& head);
+void displayStudents(StudentNode* head);
 
 void calculateAverage(Student* s);
-void calculateAllAverages(Student students[], int count);
+void calculateAllAverages(StudentNode* head);
 
-void searchByCourse(Student students[], int count);
-void showAssignmentAverage(Student students[], int count);
-void showHardestAssignment(Student students[], int count);
-void courseEnrollment(Student students[], int count);
+void searchByCourse(StudentNode* head);
+void showAssignmentAverage(StudentNode* head);
+void showHardestAssignment(StudentNode* head);
+void courseEnrollment(StudentNode* head);
 
-void sortByAverage(Student students[], int count);
+void sortByAverage(StudentNode* head);
 
-void addStudent(Student students[], int& count);
-void atRiskStudents(Student students[], int count);
-void saveStudents(Student students[], int count);
+void addStudent(StudentNode*& head);
+void atRiskStudents(StudentNode* head);
+void saveStudents(StudentNode* head);
 
-#endif
+void deleteList(StudentNode*& head); // New cleanup function requirement
